@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+<h1>{{ seatdata }}</h1>
+<p> {{ seatdata.0 }} {{ seatdata.1 }}</p>
+<p> {{ seatdata.0.id }} {{ seatdata.1.seats_window }}</p>
+{% for x in seatdata.1.seats_window  %}
+<p> {{ x }}</p>
+{% endfor %}
+</body>
+</html>

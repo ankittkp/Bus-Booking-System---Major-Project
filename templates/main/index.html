@@ -1,0 +1,164 @@
+{% extends "main/main.html" %}
+{% block content %}
+<!-- Header -->
+<header id="header">
+  <div class="intro">
+    <div class="overlay">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2 intro-text">
+            <h1>Welcome to Bus Booking System<span></span></h1>
+            <p>Check out our awesome Bus reservation system!</p>
+            <a href="#searchBuses" class="btn btn-custom btn-lg page-scroll">Search Buses</a> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+     {% csrf_token %}
+       
+       <br>
+       
+  </form>
+
+<!-- Features Section -->
+<div id="searchBuses" class="text-center">
+  <div class="container">
+    <div class="col-md-10 col-md-offset-1 section-title">
+      <h2>Search Buses</h2>
+    </div>
+
+    <div class="row">
+    <form method="POST" action= "{% url 'search' %}"> {% csrf_token %}
+
+        <div class="col-xs-6 col-md-3">
+          <h3>From: </h3>
+          <select name="stationFrom" id="stationFrom" class="form-control form-control-lg">
+            <option value="Hamirpur">Hamirpur</option>
+            <option value="Kangra">Kangra</option>
+            <option value="Dharamshala">Dharamashala</option>
+            <option value="Kullu">Kullu</option>
+            <option value="Manali">Manali</option>
+            <option value="Shimla">Shimla</option>
+            <option value="Solan">Solan</option>
+            <option value="Chamba">Chamba</option>
+            <option value="Pathankot">Pathankot</option>
+            <option value="Una">Una</option>
+            <option value="Palampur">Palampur</option>
+            <option value="Nahan">Nahan</option>
+            <option value="Sujanpur">Sujanpur</option>
+            <option value="Mccleodganj">Mccleodganj</option>
+            <option value="Mandi">Mandi</option>
+            <option value="Keylong">Keylong</option>
+            <option value="Baijnath">Baijnath</option>
+            <option value="Jogindernagar">Jogindernagar</option>
+            <option value="Dharampur">Dharampur</option>
+            <option value="Karsog">Karsog</option>
+            <option value="Sarkaghat">Sarkaghat</option>
+            <option value="Bilaspur">Bilaspur</option>
+            <option value="Rohru">Rohru</option>
+            <option value="Sundernagar">Sundernagar</option>
+            <option value="Nalagarh">Nalagarh</option>
+          </select>
+
+        </div>
+        <div class="col-xs-6 col-md-3">
+          <h3>To: </h3>
+          <select name="stationTo" id="stationTo" class="form-control form-control-lg">
+               <option value="Hamirpur">Hamirpur</option>
+            <option value="Kangra">Kangra</option>
+            <option value="Dharamshala">Dharamashala</option>
+            <option value="Kullu">Kullu</option>
+            <option value="Manali">Manali</option>
+            <option value="Shimla">Shimla</option>
+            <option value="Solan">Solan</option>
+            <option value="Chamba">Chamba</option>
+            <option value="Pathankot">Pathankot</option>
+            <option value="Una">Una</option>
+            <option value="Palampur">Palampur</option>
+            <option value="Nahan">Nahan</option>
+            <option value="Sujanpur">Sujanpur</option>
+            <option value="Mccleodganj">Mccleodganj</option>
+            <option value="Mandi">Mandi</option>
+            <option value="Keylong">Keylong</option>
+            <option value="Baijnath">Baijnath</option>
+            <option value="Jogindernagar">Jogindernagar</option>
+            <option value="Dharampur">Dharampur</option>
+            <option value="Karsog">Karsog</option>
+            <option value="Sarkaghat">Sarkaghat</option>
+            <option value="Bilaspur">Bilaspur</option>
+            <option value="Rohru">Rohru</option>
+            <option value="Sundernagar">Sundernagar</option>
+            <option value="Nalagarh">Nalagarh</option>
+            </select>
+        </div>
+        <div class="col-xs-6 col-md-3">
+          <h3>Date: </h3>
+          <!-- 2017-11-13 to 2018-11-13 -->
+          <div>
+              <input type="date" name="date" id = "date" class="form-control form-control-lg">
+          </div>
+
+        </div>
+        <div class="col-xs-6 col-md-3">
+        </div>
+        <div class="btn-submit btn-block col-md-12">
+         <button name = "submit" type="submit" class="btn btn-custom btn-lg">Search</button>
+        </form>
+    </form>
+        
+    </div>
+  </div>
+</div>
+<div class="text-center">
+    <div class="container">
+        {% if avail_buses %}
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">bus_id</th>
+                <th scope="col">start_station</th>
+                <th scope="col">end_station</th>
+                <th scope="col">travel_date</th>
+                <th scope="col">time_of_day</th>
+                <th scope="col">seats_free</th>
+                <th scope="col">chosen</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for each in avail_buses %}
+                  <tr>
+                    <th scope="row">{{each.bus_id}}</th>
+                    <td>{{each.start_station}}</td>
+                    <td>{{each.end_station}}</td>
+                    <td>{{each.travel_date}}</td>
+                    <td>{{each.time_of_day}}</td>
+                    <td>{{each.seats_free}}</td>
+                    <td>{{each.chosen}}</td>
+                    <td>
+                      <form method="POST" action="/make-reservations/"> {% csrf_token %}
+                        <input class="hidden_input" name="ti" type="text" value="{{each.bus_id}}">
+                        <input class="hidden_input" name="ss" type="text" value="{{each.start_station}}">
+                        <input class="hidden_input" name="es" type="text" value="{{each.end_station}}">
+                        <input class="hidden_input" name="trd" type="text" value="{{each.travel_date}}">
+                        <input class="hidden_input" name="tod" type="text" value="{{each.time_of_day}}">
+                        <input class="hidden_input" name="sf" type="text" value="{{each.seats_free}}">
+                        <input class="hidden_input" name="cho" type="text" value="{{each.chosen}}">
+                        <button class="btn btn-primary btn-sm">Book</button>
+                      </form>
+                    </td>
+                  </tr>
+                {% endfor %}
+          </table>
+          {% endif %}
+    </div>
+  </div>
+<style>
+  .hidden_input {
+    display: none;
+  }
+</style>
+{% endblock %}

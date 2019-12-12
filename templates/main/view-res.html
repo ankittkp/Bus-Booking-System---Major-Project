@@ -1,0 +1,56 @@
+{% extends "main/main.html" %}
+{% block content %}
+<!-- Header -->
+<header id="header">
+  <!-- Features Section -->
+<div class="text-center">
+        <div class="container">
+            <br><br><br><br><br><br>
+            <div class="col-md-10 col-md-offset-1 section-title">
+                    <h2>View Reservations</h2>
+            </div>
+            <div>
+                {% if result %}
+                    <h2>{{result}}</h2>
+                {% endif %}
+                {% if selected.train_id %}
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">train_id</th>
+                        <th scope="col">start_station</th>
+                        <th scope="col">end_station</th>
+                        <th scope="col">travel_date</th>
+                        <th scope="col">time_of_day</th>
+                        <th scope="col">seats_free</th>
+                        <th scope="col">chosen</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">{{selected.train_id}}</th>
+                        <td>{{selected.start_station}}</td>
+                        <td>{{selected.end_station}}</td>
+                        <td>{{selected.travel_date}}</td>
+                        <td>{{selected.time_of_day}}</td>
+                        <td>{{selected.seats_free}}</td>
+                        <td>1</td>
+                    </tr>
+                </table>
+                
+                {% endif %}
+            </div>
+          </div>
+        </div>
+</header>
+
+
+     {% csrf_token %}
+       
+
+  <style>
+        .hidden_input {
+          display: none;
+        }
+      </style>
+{% endblock %}

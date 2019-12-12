@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+{% block title %}Pay using Paypal{% endblock %}
+
+{% block content %}
+    <h1>Pay using Paypal</h1>
+    <form method="POST" action= "{% url 'done' %}"> {% csrf_token %}
+        <input type="hidden"  name="temp" value="{{  temp }}">
+    </form>
+    {{ form.render }}
+
+{%  endblock %}

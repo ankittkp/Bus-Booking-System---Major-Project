@@ -1,0 +1,59 @@
+{% extends "main/main.html" %}
+{% block content %}
+<!-- Header -->
+<header id="header">
+  <div class="intro">
+    <div class="overlay">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2 intro-text">
+            <h1>Buses Available<span></span></h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{#<h1> </h1>#}
+{#  <form method="POST" action= "{% url 'search' %}"> #}
+{#        <div class="col-xs-6 col-md-3">#}
+{#        <div class="btn-submit btn-block col-md-12">#}
+{#         <button name = "submit" type="submit" class="btn btn-custom btn-lg">Search</button>#}
+{#            </div>#}
+{#        </div>#}
+{#        </form>#}
+
+    <div id="searchBuses" class="text-center">
+  <div class="container">
+    <div class="col-md-10 col-md-offset-1 section-title">
+      <h2>Search Buses</h2>
+    </div>
+  </div>
+{#<form method="POST" action= "{% url 'search' %}"> {% csrf_token %}#}
+    {% for route in objects%}
+    <div class="buslist">
+    <a href="{% url 'data_form' %}?search={{route.id}}">
+        <div class="busdata">
+            <div>
+                Bus Name: {{ route.bus_name }}
+            </div>
+            <div>
+                Time: {{ route.time }}
+            </div>
+            <div>
+                Fare: Rs {{ route.fare }}
+            </div>
+            <div>
+                Available Seats: {{ route.avail_seats }}
+            </div>
+        </div>
+    </a>
+    </div>
+{#        </form>#}
+        <br>
+{#     <a align="center" href="index.html"> Source : {{ route.source }} Destination : {{ route.destination }} Fare : {{ route.fare }} Time : {{ route.time }}</a>#}
+{% endfor %}
+    <h1> </h1>
+{#</div>#}
+
+{% endblock %}
+

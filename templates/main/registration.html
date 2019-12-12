@@ -1,0 +1,89 @@
+{% extends "main/main.html" %}
+{% block content %}
+<!-- Header -->
+<header id="header">
+  <div class="intro">
+    <div class="overlay">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2 intro-text">
+            <h1>Buses Available<span></span></h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</header>
+<html>
+<head>
+    <title>
+        Enter Details :
+    </title>
+</head>
+<body>
+
+<div align="center">
+<form method="POST" action= "{% url 'thankyou' %}"> {% csrf_token %}
+    <br>
+    <table>
+        <tr>
+            <td>
+                Name :
+            </td>
+            <td>
+                <input type ="text" placeholder="Name" name="name">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Phone no :
+            </td>
+            <td>
+                <input type="Phone"  name="phone" >
+            </td>
+        </tr>
+        <tr>
+             <div class="col-xs-6 col-md-3">
+                 <h3>Gender: </h3>
+           <select name="gender" id="gender" class="form-control form-control-lg">
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+        </tr>
+        <tr>
+            <td>
+                Email :
+            </td>
+            <td>
+                <input type="mail" placeholder="Email" name="email" >
+            </td>
+        </tr>
+        <tr>
+            <div class="col-xs-6 col-md-3">
+                <h3>Select Window Seats: </h3>
+                    <select name="window" id="window" class="form-control form-control-lg">
+                    <option value="0">N/A</option>
+                    {% for x in seatdata.1.seats_window %}
+                        <option value="{{ x }}"> {{ x }}</option>
+                       {% endfor %}
+          </select>
+        </div>
+        </tr>
+        <tr>
+            <div class="col-xs-6 col-md-3">
+                <h3>Select Aisle Seats: </h3>
+                    <select name="aisle" id="aisle" class="form-control form-control-lg">
+                    <option value="0">N/A</option>
+                    {% for x in seatdata.2.seats_aisle %}
+                        <option value="{{ x }}"> {{ x }}</option>
+                       {% endfor %}
+          </select>
+        </div>
+        </tr>
+    </table>
+    <input type="hidden"  name="i" value="{{  seatdata.0.id }}">
+    <div class="btn-submit btn-block col-md-12">
+        <button name = "submit" type="submit" class="btn btn-custom btn-lg">Register</button>
+</form>
+</body>
+</html>
+    {% endblock %}
