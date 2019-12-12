@@ -1,0 +1,115 @@
+Metadata-Version: 2.1
+Name: django-inlinecss
+Version: 0.3.0
+Summary: A Django app useful for inlining CSS (primarily for e-mails)
+Home-page: https://github.com/roverdotcom/django-inlinecss
+Author: Philip Kimmey
+Author-email: philip@rover.com
+License: MIT
+Keywords: html,css,inline,style,email
+Platform: UNKNOWN
+Classifier: Environment :: Other Environment
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Topic :: Communications :: Email
+Classifier: Topic :: Text Processing :: Markup :: HTML
+Description-Content-Type: text/markdown
+Requires-Dist: Django (>=1.11)
+Requires-Dist: pynliner
+Requires-Dist: future (>=0.16.0)
+Provides-Extra: flake8
+Requires-Dist: flake8 (==3.6.0) ; extra == 'flake8'
+Requires-Dist: flake8-isort (==2.6.0) ; extra == 'flake8'
+Requires-Dist: isort (==4.3.4) ; extra == 'flake8'
+Requires-Dist: testfixtures (==6.3.0) ; extra == 'flake8'
+Provides-Extra: tests
+Requires-Dist: mock (==2.0.0) ; extra == 'tests'
+Requires-Dist: pytest (==4.3.1) ; extra == 'tests'
+Requires-Dist: pytest-django (==3.4.8) ; extra == 'tests'
+
+[![Build Status](https://travis-ci.org/roverdotcom/django-inlinecss.png?branch=master)](https://travis-ci.org/roverdotcom/django-inlinecss)
+
+## About
+
+Inlining CSS is necessary for email generation and sending
+but is currently a surprisingly large hassle.
+
+This library aims to make it a breeze in the Django
+template language.
+
+## Usage
+
+#### Step 1: Dependencies
+
+- BeautifulSoup
+- cssutils
+- Python 2.7+,3.4+
+- Django 1.11+
+
+
+#### Step 2: Install django_inlinecss
+
+Add ```django_inlinecss``` to your ```settings.py```:
+
+```python
+INSTALLED_APPS = (
+        'django.contrib.auth',
+        'django.contrib.webdesign',
+        'django.contrib.contenttypes',
+        '...',
+        '...',
+        '...',
+        'django_inlinecss')
+```
+
+#### Step 3: Use the templatetag
+
+1. Place your CSS file somewhere staticfiles can find it
+2. Create your template:
+
+```html
+{% load inlinecss %}
+{% inlinecss "css/extra-padding.css" %}
+    <html>
+        <body>
+            <div class='lots-o-padding'>
+                Something in need of styling.
+            </div>
+        </body>
+    </html>
+{% endinlinecss %}
+```
+
+#### Step 4: Prepare to be Wowed
+
+```html
+<html>
+    <body>
+        <div style="padding-left: 10px; padding-right: 10px; padding-top: 10px;" class="lots-o-padding">
+            Something in need of styling.
+        </div>
+    </body>
+</html>
+```
+
+## Acknowledgements
+
+Thanks to Tanner Netterville for his efforts on [Pynliner](https://github.com/rennat/pynliner).
+
+Thanks to Thomas Yip for his unit tests on the `soupselect` module. These tests
+helped on getting the core CSS2 selectors to work.
+
+## License
+
+MIT license. See LICENSE.md for more detail.
+
+
